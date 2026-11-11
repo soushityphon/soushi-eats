@@ -4,12 +4,14 @@ Updated 11 November 2026, Brisbane.
 
 ## Live
 
-- Site: https://soushi-eats.personal0reminders.workers.dev/
-- Initial public recipe: https://soushi-eats.personal0reminders.workers.dev/recipes/hojicha-basque
+- Site: https://soushi-eats.pages.dev/
+- Initial public recipe: https://soushi-eats.pages.dev/recipes/hojicha-basque
 - Owner entry: choose **Owner sign-in**, which opens `/admin`.
-- Worker: `soushi-eats`
+- Primary Pages project: `soushi-eats`
+- Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Worker deployment ID: `e6740c4fb9e34161906cd397429483a0`
+- Pages production deployment ID: `3e86fd4a-4321-4a7d-834b-04c0c01d9bc9`
+- Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the existing email-code provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
 - Public access is intentional. Do not make the whole Worker private.
@@ -39,4 +41,7 @@ Complete the real owner email-code sign-in, add or edit a recipe, wait for **Sav
 - Refine the JSON edit form if needed.
 - Full locked-screen/background push alerts remain separate work.
 - No hosted GitHub Actions are configured.
-- Deployment uses the connected Cloudflare API. Build the current source with `npm run build` and upload `dist/worker.mjs`, preserving the existing bindings and Access policy.
+- Primary deployment uses the connected Cloudflare Pages API. Build the current source with `npm run build` and upload the `dist/pages/` outputs, preserving the Pages bindings and Access policy.
+- The existing D1 database is shared with the previous Workers hostname. No recipe data was copied or reset.
+- Live public browsing and the owner email-code challenge were verified at `soushi-eats.pages.dev`.
+- Direct Upload is configured; GitHub pushes do not auto-deploy.
