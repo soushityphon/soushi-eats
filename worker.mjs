@@ -1,3 +1,4 @@
+import {collectionContributions,handleContributions,serveRecipePhoto} from './contributions.mjs';
 import {verifyUser} from './auth.mjs';
 import {cleanState,publicRecipes} from './validation.mjs';
 import page from './public/index.html';
@@ -12,9 +13,11 @@ export default {async fetch(request,env){
  try{const url=new URL(request.url),path=url.pathname;const isAdmin=path==='/admin'||path.startsWith('/admin/');
  const user=isAdmin?await verifyUser(request,env):null;if(isAdmin&&!user)return json({error:'Sign in with an authorised Google account'},403);
  const safeMethod=request.method==='GET'||request.method==='HEAD';
- if(path==='/api/recipes'){if(!safeMethod)return json({error:'Read-only endpoint'},405,{Allow:'GET, HEAD'});const row=await env.DB.prepare('SELECT data, revision, updated_at FROM app_state WHERE id = 1').first();if(!row)return json({error:'Collection is not ready'},503);const result=json({recipes:publicRecipes(creditedState(JSON.parse(row.data))),revision:row.revision,updatedAt:row.updated_at});return request.method==='HEAD'?new Response(null,result):result}
+ if(path.startsWith('/photos/'))return await serveRecipePhoto(request,env,path,{json,SECURITY});
+ const contributionResult=isAdmin?await handleContributions(request,env,user,path,url,{json,boundedJson}):null;if(contributionResult)return contributionResult;
+ if(path==='/api/recipes'){if(!safeMethod)return json({error:'Read-only endpoint'},405,{Allow:'GET, HEAD'});const row=await env.DB.prepare('SELECT data, revision, updated_at FROM app_state WHERE id = 1').first();if(!row)return json({error:'Collection is not ready'},503);const result=json({recipes:publicRecipes(creditedState(JSON.parse(row.data))),revision:row.revision,updatedAt:row.updated_at,contributions:await collectionContributions(env.DB,JSON.parse(row.data).recipes)});return request.method==='HEAD'?new Response(null,result):result}
  if(path==='/admin/api/state'){
-  if(request.method==='GET'){const row=await env.DB.prepare('SELECT data, revision, updated_at FROM app_state WHERE id = 1').first();if(!row)return json({error:'Collection is not ready'},503);const saved=creditedState(JSON.parse(row.data));return json({...userState(saved,user),user,revision:row.revision,updatedAt:row.updated_at})}
+  if(request.method==='GET'){const row=await env.DB.prepare('SELECT data, revision, updated_at FROM app_state WHERE id = 1').first();if(!row)return json({error:'Collection is not ready'},503);const saved=creditedState(JSON.parse(row.data));return json({...userState(saved,user),contributions:await collectionContributions(env.DB,saved.recipes),user,revision:row.revision,updatedAt:row.updated_at})}
   if(request.method!=='PUT')return json({error:'Method not allowed'},405,{Allow:'GET, PUT'});
   if(request.headers.get('Origin')!==url.origin||request.headers.get('X-Soushi-Request')!=='save'||!request.headers.get('Content-Type')?.toLowerCase().startsWith('application/json'))return json({error:'Invalid save request'},403);
   const version=request.headers.get('If-Match');if(!version||!/^\d+$/.test(version))return json({error:'Collection revision required'},428);
