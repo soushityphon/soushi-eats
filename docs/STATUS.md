@@ -10,7 +10,7 @@ Updated 11 November 2026, Brisbane.
 - Primary Pages project: `soushi-eats`
 - Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Pages production deployment ID: `2ec6eee5-207f-4554-8279-f85bcdc285a0`
+- Pages production deployment ID: `6e94423d-8f51-4d74-ba90-280795d511b7`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the Google identity provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
@@ -53,6 +53,20 @@ Checks: all 27 tests pass; five prompt content checks pass. Local desktop/mobile
 The Copy AI prompt is now written as a follow-up to the latest complete recipe in the same Gemini/ChatGPT conversation, including agreed changes. It no longer ends with a request to paste a recipe underneath. If multiple recipes make the target genuinely unclear, it asks one clarification before conversion. Import-dialog guidance describes this workflow.
 
 The prompt evaluates six tag categories: course/role, dish type, defining ingredients/flavours, cuisine/regional style, cooking method and optional dietary suitability. It requests a flat array of typically 3 to 7 tags, maximum 8, without category prefixes or redundant synonyms. It uses recipe and relevant conversation evidence, qualifying inspired/fusion cuisine and avoiding unsupported cuisine or dietary claims. Existing tag schema, saved recipes and public display remain unchanged. Prompt syntax and follow-up/tag guidance checks passed, together with all 27 tests. Actual Gemini output still requires review before importing.
+
+## Multipart recipes and quiet source measures
+
+Optional `section` strings (maximum 120 characters) are now accepted on ingredient and method step records. Server/public allowlists and embedded frontend validation retain them. Existing version-1 flat recipes remain valid. Each contiguous section appears as a small heading inside its existing panel; different ingredient/method names and returning to a previous method section are supported without merging stages. One batch multiplier, stable ingredient references, checklists and timers apply across all sections.
+
+The editor supports per-row section assignment, section creation, renaming, whole-section reordering and Ungroup (which retains its rows). Preview includes headings. New rows continue the last section; a new section creates one editable row. Optional components use a clear '(optional)' section label. Moving method stages still resets existing step ticks as part of the current edit logic.
+
+Repeated unknown-size/count-unit notes are removed from ingredient rows. Unspecified cups/spoons remain as written and are not converted using a guessed factor. Pinches and other casual measures retain their source units; to-taste/as-needed amounts stay qualitative. One quiet explanation remains in View settings. Explicit approximate weight estimates still retain their explanatory note.
+
+The follow-up import prompt now describes optional section fields, independent ingredient and cooking-stage groups, chronological steps, optional components and flat simple recipes. It preserves flexible measures, avoids nagging source-standard questions and repeated warning notes, and retains the tag/wording guidance.
+
+All 33 tests pass. Added coverage includes validation/public/editor round-trips, whole-section moves, interleaved stages, flat compatibility, bad labels, ungrouping without content loss, and unresolved/casual measurement behaviour. Local desktop/mobile browser checks passed for assignment, naming, ordering, preview, save and manual section entry; mobile editor had no horizontal overflow. Live soup section headings, shared scaling and absence of repeated measure notices were checked. Existing branding/favicon assets were retained in the deployment.
+
+The beef noodle soup at `/recipes/recipe-6ff559c3-9ce8-44a9-a855-f244e6ecec24` was given three ingredient groups and four method stages. Only 34 section fields were added, guarded against revision 7 and saved as revision 8 with the prior snapshot retained. A database comparison confirmed all other collection data, including wording, amounts and private state, remained identical. Refresh existing owner tabs before editing; stale revisions continue to be rejected.
 
 ## Verified
 
