@@ -12,7 +12,7 @@ Live site: https://soushi-eats.pages.dev
 - Read-only public API: `GET /api/recipes`
 - Protected owner API: `GET /admin/api/state`, `PUT /admin/api/state`
 
-The owner uses Cloudflare Access email-code sign-in. The owner email is configured as a runtime binding and an Access policy, never embedded in this public repository.
+The primary Pages site uses Google sign-in through Cloudflare Access. Its owner application allows only the Google provider and redirects directly to it; the exact-email owner policy and 24-hour session remain in place. The earlier secondary Workers hostname retains its previous email-code configuration. The owner email is configured as a runtime binding and an Access policy, never embedded in this public repository.
 
 ## Local checks
 
