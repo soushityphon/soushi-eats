@@ -1,0 +1,127 @@
+{
+  "recipes": [
+    {
+      "version": 1,
+      "id": "hojicha-basque",
+      "title": "Hojicha burnt Basque cheesecake",
+      "description": "Roasted tea, a dark caramelised top and a soft centre. A low-air mixing method for a smooth, dense cheesecake.",
+      "tags": [
+        "Baking",
+        "Dessert",
+        "Hojicha"
+      ],
+      "servings": null,
+      "tin": "24 × 12 cm rectangular tin, depth not supplied",
+      "oven": {
+        "celsius": 220,
+        "mode": "fan-forced"
+      },
+      "bakeMinutes": [
+        30,
+        35
+      ],
+      "chillHours": 8,
+      "measurementStandard": "AU",
+      "ingredients": [
+        {
+          "id": "cheese",
+          "name": "Cream cheese",
+          "amount": 1000,
+          "unit": "g",
+          "note": "Fully softened to room temperature"
+        },
+        {
+          "id": "sugar",
+          "name": "Caster sugar",
+          "amount": 280,
+          "unit": "g"
+        },
+        {
+          "id": "eggs",
+          "name": "Large whole eggs",
+          "amount": 6,
+          "unit": "count",
+          "note": "Room temperature"
+        },
+        {
+          "id": "yolk",
+          "name": "Egg yolk",
+          "amount": 1,
+          "unit": "count",
+          "note": "Room temperature"
+        },
+        {
+          "id": "cream",
+          "name": "Pure heavy cream",
+          "amount": 450,
+          "unit": "ml",
+          "note": "At least 35% fat"
+        },
+        {
+          "id": "hojicha",
+          "name": "Hojicha powder",
+          "amount": 25,
+          "maxAmount": 30,
+          "unit": "g"
+        },
+        {
+          "id": "starch",
+          "name": "Potato starch",
+          "amount": 25,
+          "unit": "g"
+        },
+        {
+          "id": "salt",
+          "name": "Fine sea salt",
+          "amount": 0.5,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Infuse the hojicha cream",
+          "tip": "Warm the cream, do not boil.",
+          "text": "Warm {cream} of pure heavy cream in a small saucepan over medium-low heat. Remove from the heat and whisk in {hojicha} of hojicha powder until smooth. Set aside to cool slightly."
+        },
+        {
+          "title": "Prepare the oven and tin",
+          "tip": "220°C fan-forced. Use the original tin size for a 1× batch.",
+          "text": "Preheat the oven to 220°C fan-forced. Crumple a large sheet of baking paper, unfold it and press it into your 24 × 12 cm rectangular tin. Let the paper extend at least 3 cm above the rim to allow for the rise."
+        },
+        {
+          "title": "Mix the base and starch",
+          "tip": "Keep the mixer on low to avoid adding air.",
+          "text": "Using a paddle attachment, or a hand mixer on low, mix {cheese} of room-temperature cream cheese, {sugar} of caster sugar and {starch} of potato starch just until smooth and lump-free. Scrape down the bowl halfway through."
+        },
+        {
+          "title": "Add the eggs",
+          "tip": "Add one at a time, mixing only until incorporated.",
+          "text": "With the mixer on low, add {eggs} and {yolk}, one at a time. Let each addition blend into the base before adding the next. Stop mixing once the last addition disappears."
+        },
+        {
+          "title": "Fold in the cream and salt",
+          "tip": "Switch to a spatula. Keep it submerged as you stir.",
+          "text": "Add {salt} of fine sea salt. Pour in the cooled hojicha cream in a slow stream. Stir by hand in wide, slow circles until the batter is uniform, taking care not to whip in air."
+        },
+        {
+          "title": "Strain, rest and pop",
+          "tip": "Rest for 3 minutes.",
+          "text": "Pour the batter through a fine-mesh sieve into the prepared tin. Tap the tin on the bench 3 to 4 times. Rest for 3 minutes, then use a toothpick to pop bubbles on the surface."
+        },
+        {
+          "title": "Bake until dark with a wobbly centre",
+          "tip": "Original guidance: 30 to 35 minutes at 220°C fan-forced.",
+          "text": "Bake for 30 to 35 minutes. The top should be deep dark brown and caramelised, while the middle 3 inches (about 7.6 cm) still jiggles like set jelly when you nudge the tin. Timing depends on the oven and batter depth."
+        },
+        {
+          "title": "Cool, chill and slice",
+          "tip": "Chill in the tin for at least 8 hours, or overnight.",
+          "text": "Cool completely in the tin on a wire rack, then chill in the tin for at least 8 hours or overnight. Use the paper overhang to lift out the firm cake. Slice with a hot, clean chef’s knife, wiping the blade dry between cuts."
+        }
+      ]
+    }
+  ],
+  "states": {},
+  "preferences": {},
+  "densities": {}
+}
