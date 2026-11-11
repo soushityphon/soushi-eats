@@ -1,6 +1,6 @@
 # Soushi Eats
 
-A public recipe collection with owner-only editing, private owner notes, measurement preferences, scaling and recipe timers.
+A public recipe collection with Google sign-in for Soushi and Light, shared recipe editing, personal notes and favourites, measurement preferences, scaling and recipe timers.
 
 ## Live site
 
@@ -12,7 +12,7 @@ Live site: https://soushi-eats.pages.dev
 - Read-only public API: `GET /api/recipes`
 - Protected owner API: `GET /admin/api/state`, `PUT /admin/api/state`
 
-The primary Pages site uses Google sign-in through Cloudflare Access. Its owner application allows only the Google provider and redirects directly to it; the exact-email owner policy and 24-hour session remain in place. The earlier secondary Workers hostname retains its previous email-code configuration. The owner email is configured as a runtime binding and an Access policy, never embedded in this public repository.
+The primary Pages site uses Google sign-in through Cloudflare Access. Its Access application allows only the Google provider and redirects directly to it. Exact-email policies allow the configured owner and collaborator, with 24-hour sessions. The earlier secondary Workers hostname retains its previous email-code configuration. Account emails are configured as runtime bindings and Access policies, never embedded in this repository.
 
 ## Local checks
 
@@ -49,13 +49,13 @@ Deployment is performed through the connected Cloudflare API. No hosted GitHub A
 
 ## Data and recovery
 
-The database stores one versioned collection document. Public responses use an explicit field allowlist and never include owner notes, favourites, settings or checklist state.
+The database stores one versioned collection document. Public responses use an explicit field allowlist and never include personal notes, favourites, settings, email addresses or checklist state.
 
-Owner writes require a valid Access RSA signature, issuer, audience, expiry and exact email. Writes also require a same-origin JSON request with a custom header and the current collection revision. Stale updates return a conflict instead of overwriting another tab's work.
+Signed-in writes require a valid Access RSA signature, issuer, audience, expiry and an exact match to OWNER_EMAIL or COLLABORATOR_EMAIL. Writes also require a same-origin JSON request with a custom header and the current collection revision. Stale updates return a conflict instead of overwriting another tab's work.
 
 The last 30 previous collection revisions are retained in `state_history`. Export a backup from the owner collection for an independent copy. Failed saves also leave a browser-local recovery download, available through **Recover unsaved work**. Recovery exports are private and must not be committed here.
 
-To restore a database revision, first export the current collection and inspect `state_history` through the Cloudflare dashboard. Restore only the intended JSON document and increment the current revision. A code rollback does not restore database contents.
+To restore a database revision, first export the current collection and inspect `state_history` through the Cloudflare dashboard. Restore only the intended JSON document and increment the current revision. A code rollback does not restore database contents. Do not deploy builds from before shared accounts, because those builds do not preserve collaborator private state.
 
 ## Measurement rules
 
@@ -74,3 +74,11 @@ The initial hojicha Basque cheesecake recipe was supplied by the owner. Its baki
 Use **+ New recipe** to open the Import tab for AI JSON output or a backup. Choose **Create manually** to start a blank recipe. **Edit recipe** opens the same form for an existing recipe. Details, Ingredients and Method tabs support titles, descriptions, tags, cooking metadata, ingredient amounts and notes, and ordered method steps. Insert ingredient amount chips into instructions to keep them linked to batch scaling. Optional step tips and timers are editable. Preview before saving, or cancel without changing the saved recipe. Removing an ingredient referenced in the method requires removing its amount chips first.
 
 Batch size uses a custom multiplier, with ingredient-based scaling available in the same menu. **Delete recipe** requires an in-app confirmation. Public visitors can adjust only their own view, checklist state and timers.
+
+## Shared accounts
+
+Soushi is the owner and Light is an editor. Both can add, edit and delete any recipe. The primary Pages deployment maps COLLABORATOR_EMAIL to Light after verifying the Access JWT. The secondary Worker remains owner-only, but runs the same data-preserving build.
+
+Recipe credits are assigned by the server using the signed-in account. Existing recipes default to Soushi. An edit retains the original creator. Public cards and recipe pages show only display names, and the collection has a person filter.
+
+The existing top-level states, preferences and densities remain Soushi's private data. Light's private data lives under privateUsers.light in the same versioned document. API responses return only the current user's private fields. Client-supplied profile data, other users' private data and forged recipe credits are ignored. Saves preserve the other person's private fields, validate progress against current recipe contents and use the existing revision conflict protection. Recovery downloads use separate browser keys for each account.
