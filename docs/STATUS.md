@@ -9,10 +9,14 @@ Updated 11 November 2026, Brisbane.
 - Owner entry: choose **Owner sign-in**, which opens `/admin`.
 - Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Worker deployment ID: `b47bef64c63e4423992ba09473b49825`
+- Worker deployment ID: `e6740c4fb9e34161906cd397429483a0`
 - Access uses a reusable, exact-email Allow policy, the existing email-code provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
 - Public access is intentional. Do not make the whole Worker private.
+
+## Current appearance
+
+Compact Discord-inspired charcoal palette, sans-serif UI font stack and blurple accents. Typography uses gg sans or Noto Sans when locally available, with Helvetica/Arial fallbacks. No remote font requests are required. The live recipe layout was visually checked after deployment.
 
 ## Verified
 
