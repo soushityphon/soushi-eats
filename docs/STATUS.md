@@ -10,7 +10,7 @@ Updated 11 November 2026, Brisbane.
 - Primary Pages project: `soushi-eats`
 - Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Pages production deployment ID: `d7cd5c32-d822-4e63-ab4e-df913732b463`
+- Pages production deployment ID: `7a666549-fa00-4ee8-ab64-417a8ad9ba13`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the Google identity provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
@@ -22,9 +22,9 @@ Compact Discord-inspired charcoal palette, sans-serif UI font stack and blurple 
 
 ## Recipe layout
 
-The recipe page now prioritises its title, compact cooking summary, aligned ingredients and method. Share, favourite and View settings sit beside the title. Scaling is in the Ingredients batch popover, with a custom multiplier and ingredient-based scaling. Preset batch buttons have been removed. Checklist reset is in the ingredient menu. Sound, notifications, custom timers and timer limitations are in View settings. Copy AI prompt is in the owner's import dialog. Source metadata and missing serving/tin information are in Recipe details.
+The recipe page now prioritises its title, compact cooking summary, aligned ingredients and method. Share, favourite and View settings sit beside the title. Scaling is in the Ingredients batch popover, with a custom multiplier and ingredient-based scaling. Preset batch buttons have been removed. Checklist reset is in the ingredient menu. Sound, notifications, custom timers and timer limitations are in View settings. Copy AI prompt is in the owner's import dialog. The repeated Recipe details panel has been removed. Known servings appear in the compact summary; missing servings are not shown. Owner Edit and Delete actions are inside the top-right Recipe options menu, beside the save indicator; delete confirmation remains in place.
 
-Repeated method tips are suppressed from the default view. Additional tips remain expandable, and cautions such as “Do not boil” stay visible. Recipe records and source instructions are not rewritten by these presentation changes.
+All supplied method tips now appear as visible Tip callouts with a left border, including cautions such as “Do not boil”. There are no tip dropdowns or automatic tip suppression. Recipe records and source instructions are not rewritten by these presentation changes.
 
 The desktop and 390 px mobile layouts were checked locally with the actual frontend and a fixture API. Custom and ingredient-based scaling, checklist reset, Fahrenheit display and inline timer start/cancel passed. The mobile document had no horizontal overflow. The published Pages layout, batch menu and View settings were also checked.
 
@@ -35,6 +35,8 @@ Owner-only **Edit recipe** now opens a form with Details, Ingredients and Method
 Existing recipe IDs and ingredient IDs remain stable. Recipe edits preserve private notes, favourites and display preferences. Method edits reset step ticks; removed ingredients are removed from ingredient ticks. Changing an ingredient name or unit clears its old density override. Server validation and the existing revision-guarded owner save API still apply.
 
 Desktop and 390 px mobile form checks passed using a local fixture API: edit, preview, save, manual entry, amount-chip insertion, ingredient reorder, timer editing, discard protection and reload after save. No mobile horizontal overflow was found. Public live verification confirmed no preset batch buttons, custom scaling and hidden owner edit controls. Real owner sign-in and a production save remain the user check below.
+
+The latest layout changes passed local desktop and 390 px mobile checks: visible tips, hidden-until-open owner menu actions, editor opening, and delete confirmation/cancel. The mobile document had no horizontal overflow. The published recipe was checked for visible callouts and absence of the Recipe details panel. All 27 existing tests still pass.
 
 ## Verified
 
