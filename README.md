@@ -4,7 +4,7 @@ A public recipe collection with owner-only editing, private owner notes, measure
 
 ## Live site
 
-Live site: https://soushi-eats.personal0reminders.workers.dev
+Live site: https://soushi-eats.pages.dev
 
 - Public collection: `/`
 - Public recipe links: `/recipes/<recipe-id>`
@@ -26,6 +26,14 @@ npm test
 There are no package dependencies to install. Checks cover signed and forged tokens, wrong owners, public note privacy, CSRF, SQLite writes and conflicts, recipe validation, and measurement conversions. The tests use Node's built-in SQLite support.
 
 ## Deployment
+
+The primary site is the Cloudflare Pages project `soushi-eats`, using Pages advanced mode. The earlier Workers hostname remains a secondary deployment against the same D1 database.
+
+`npm run build` produces `dist/pages/_worker.js` and `dist/pages/_routes.json`, as well as the standalone Worker bundle. For Pages, upload the two Pages output files through the Pages deployments API with an empty asset manifest and branch `main`. Configure the existing `DB` binding and the Pages-specific `ACCESS_AUD`, along with `ACCESS_ISSUER` and `OWNER_EMAIL`, in the production deployment configuration. The Pages owner Access application protects `soushi-eats.pages.dev/admin` using the existing owner policy. Preview deployments have no production database binding.
+
+This project uses Direct Upload. Pushing to GitHub does not automatically publish a Pages deployment. Use the connected Cloudflare API to publish the checked build. No hosted GitHub Actions are configured.
+
+### Standalone Worker deployment
 
 This is a Cloudflare Worker plus a D1 database. `node build.mjs` embeds `public/index.html` into `dist/worker.mjs`. The generated bundle is not committed. Static HTML is currently served by the Worker, so page requests count toward the Workers allowance.
 
