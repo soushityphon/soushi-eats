@@ -10,7 +10,7 @@ Updated 11 November 2026, Brisbane.
 - Primary Pages project: `soushi-eats`
 - Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Pages production deployment ID: `012cff8c-d525-4fd2-a7a8-52e7dc9d5e39`
+- Pages production deployment ID: `598a78e7-970e-4f46-bca3-b2c28d25aef9`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the Google identity provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
@@ -75,6 +75,14 @@ Reviewed the three live recipes: cheesecake currently has 4 inferred timer butto
 The prompt now requires a timers array on EVERY step, using [] to suppress unwanted automatic extraction. It requests at most one useful check reminder per step and usually 2 to 4 across a recipe, without treating that as a quota. Ranges use the earliest source time only. Hands-on stirring, searing, spice blooming, deglazing and brief thickening normally get no timer; optional troubleshooting extensions and generic overnight/minimum chilling normally get none. Explicit near-term cooling/refrigeration checks may remain. Timer labels describe a check rather than guaranteed completion. All source timing ranges remain in the recipe text.
 
 Suggested reductions from the review (not applied to stored recipes): cheesecake, 3-minute rest and 30-minute bake check; beef soup, 4-minute blanch, 2-hour tenderness check, 45-minute cooling check and 10-minute reheat check; pork belly, 4-minute blanch, 2-hour tenderness check and 15-minute reduction check. Existing recipe records and timer metadata were not modified. All 33 tests and selective prompt content checks passed; no new output from Gemini was tested.
+
+## Collection cards and larger mascot
+
+The header catboy icon is 56 px on desktop and 48 px on mobile, up from 40 px. Recipe cards use softer corners and pastel tag pills. Tags, titles and ingredient/step counts share aligned grid rows via CSS subgrid, with a grid fallback. All tags and full titles remain visible, including wrapped content. Search and recipe navigation are unchanged; singular ingredient/step labels are handled.
+
+All 33 tests pass. Local three-card fixture checks confirmed matching tag/title/count positions, search filtering and no horizontal overflow at 390 px. Live verification confirmed the three real cards have identical tag/title/count row positions and the larger icon renders correctly.
+
+Separately, after the selective timer review, the owner authorised applying it to existing recipes. The live collection was updated from revision 9 to 10: cheesecake has 2 timers, beef soup 4 and pork belly 3. Only step timers arrays changed; a database comparison confirmed all other saved data was identical and the previous revision was retained.
 
 ## Verified
 
