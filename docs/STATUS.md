@@ -10,7 +10,7 @@ Updated 11 November 2026, Brisbane.
 - Primary Pages project: `soushi-eats`
 - Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Pages production deployment ID: `6e94423d-8f51-4d74-ba90-280795d511b7`
+- Pages production deployment ID: `012cff8c-d525-4fd2-a7a8-52e7dc9d5e39`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the Google identity provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
@@ -67,6 +67,14 @@ The follow-up import prompt now describes optional section fields, independent i
 All 33 tests pass. Added coverage includes validation/public/editor round-trips, whole-section moves, interleaved stages, flat compatibility, bad labels, ungrouping without content loss, and unresolved/casual measurement behaviour. Local desktop/mobile browser checks passed for assignment, naming, ordering, preview, save and manual section entry; mobile editor had no horizontal overflow. Live soup section headings, shared scaling and absence of repeated measure notices were checked. Existing branding/favicon assets were retained in the deployment.
 
 The beef noodle soup at `/recipes/recipe-6ff559c3-9ce8-44a9-a855-f244e6ecec24` was given three ingredient groups and four method stages. Only 34 section fields were added, guarded against revision 7 and saved as revision 8 with the prior snapshot retained. A database comparison confirmed all other collection data, including wording, amounts and private state, remained identical. Refresh existing owner tabs before editing; stale revisions continue to be rejected.
+
+## Selective timer prompt review
+
+Reviewed the three live recipes: cheesecake currently has 4 inferred timer buttons, beef noodle soup has 12 explicit buttons, and pork belly has 15 explicit buttons. The prior prompt explicitly requested both ends of every range, which caused most of the clutter. The existing app can also infer timers when the timers property is absent.
+
+The prompt now requires a timers array on EVERY step, using [] to suppress unwanted automatic extraction. It requests at most one useful check reminder per step and usually 2 to 4 across a recipe, without treating that as a quota. Ranges use the earliest source time only. Hands-on stirring, searing, spice blooming, deglazing and brief thickening normally get no timer; optional troubleshooting extensions and generic overnight/minimum chilling normally get none. Explicit near-term cooling/refrigeration checks may remain. Timer labels describe a check rather than guaranteed completion. All source timing ranges remain in the recipe text.
+
+Suggested reductions from the review (not applied to stored recipes): cheesecake, 3-minute rest and 30-minute bake check; beef soup, 4-minute blanch, 2-hour tenderness check, 45-minute cooling check and 10-minute reheat check; pork belly, 4-minute blanch, 2-hour tenderness check and 15-minute reduction check. Existing recipe records and timer metadata were not modified. All 33 tests and selective prompt content checks passed; no new output from Gemini was tested.
 
 ## Verified
 
