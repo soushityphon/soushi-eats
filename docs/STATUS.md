@@ -10,7 +10,7 @@ Updated 11 November 2026, Brisbane.
 - Primary Pages project: `soushi-eats`
 - Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Pages production deployment ID: `3e86fd4a-4321-4a7d-834b-04c0c01d9bc9`
+- Pages production deployment ID: `ac7ae64d-9103-4dec-8b3b-5e9d76b1463d`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the existing email-code provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
@@ -19,6 +19,14 @@ Updated 11 November 2026, Brisbane.
 ## Current appearance
 
 Compact Discord-inspired charcoal palette, sans-serif UI font stack and blurple accents. Typography uses gg sans or Noto Sans when locally available, with Helvetica/Arial fallbacks. No remote font requests are required. The live recipe layout was visually checked after deployment.
+
+## Recipe layout
+
+The recipe page now prioritises its title, compact cooking summary, aligned ingredients and method. Share, favourite and View settings sit beside the title. Scaling is in the Ingredients batch popover, including custom batches and ingredient-based scaling. Checklist reset is in the ingredient menu. Sound, notifications, custom timers and timer limitations are in View settings. Copy AI prompt is in the owner's import dialog. Source metadata and missing serving/tin information are in Recipe details.
+
+Repeated method tips are suppressed from the default view. Additional tips remain expandable, and cautions such as “Do not boil” stay visible. Recipe records and source instructions are not rewritten by these presentation changes.
+
+The desktop and 390 px mobile layouts were checked locally with the actual frontend and a fixture API. Preset/custom/ingredient-based scaling, checklist reset, Fahrenheit display and inline timer start/cancel passed. The mobile document had no horizontal overflow. The published Pages layout, batch menu and View settings were also checked.
 
 ## Verified
 
