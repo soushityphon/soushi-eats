@@ -10,7 +10,7 @@ Updated 11 November 2026, Brisbane.
 - Primary Pages project: `soushi-eats`
 - Secondary Worker: `soushi-eats`
 - D1 database: `soushi-eats`
-- Pages production deployment ID: `7a666549-fa00-4ee8-ab64-417a8ad9ba13`
+- Pages production deployment ID: `c56d297d-5274-4411-b092-2b61bc72737e`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
 - Access uses a reusable, exact-email Allow policy, the Google identity provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
@@ -37,6 +37,16 @@ Existing recipe IDs and ingredient IDs remain stable. Recipe edits preserve priv
 Desktop and 390 px mobile form checks passed using a local fixture API: edit, preview, save, manual entry, amount-chip insertion, ingredient reorder, timer editing, discard protection and reload after save. No mobile horizontal overflow was found. Public live verification confirmed no preset batch buttons, custom scaling and hidden owner edit controls. Real owner sign-in and a production save remain the user check below.
 
 The latest layout changes passed local desktop and 390 px mobile checks: visible tips, hidden-until-open owner menu actions, editor opening, and delete confirmation/cancel. The mobile document had no horizontal overflow. The published recipe was checked for visible callouts and absence of the Recipe details panel. All 27 existing tests still pass.
+
+## Reading polish and import prompt
+
+Ingredient amount/name columns are closer together. Tip callouts use a slim line without filled boxes, and method dividers are softer. Checkboxes have matching dark/blurple styling, focus states and a native fallback in forced-colour mode. Completed rows remain readable. The desktop sidebar sticks only when its full height fits the viewport; a ResizeObserver disables sticking when content or viewport size changes. Mobile stays in normal flow.
+
+Save feedback appears once near Recipe options. Saving and errors remain visible; successful save feedback fades after 2.5 seconds. The duplicate notes save label was removed. Reduced-motion preferences are respected.
+
+The Copy AI prompt content now requests short action titles, complete ordered instructions, Australian English and optional tips with useful extra technique, cautions or doneness cues. It requires removal of repeated wording without losing source meaning or safety details, and omission of redundant/empty tips. It retains structured cooking metadata, scaled ingredient references and explicit timer rules. Existing stored recipe content is not rewritten and no automatic runtime tip suppression was added. AI output should still be reviewed before import.
+
+Checks: all 27 tests pass; five prompt content checks pass. Local desktop/mobile checks covered sticky eligibility, no mobile horizontal overflow, checkbox appearance/completion and fading save feedback. Live checks confirmed lighter tips, sticky sidebar and checkbox styling. Clipboard contents could not be confirmed through the browser runtime during local prompt-copy testing; the prompt itself was parsed and checked directly from the frontend source.
 
 ## Verified
 
