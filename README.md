@@ -71,6 +71,6 @@ The initial hojicha Basque cheesecake recipe was supplied by the owner. Its baki
 
 ## Editing
 
-Use **+ New recipe** to enter a recipe by hand, or **Import recipe** for AI JSON output or a backup. **Edit recipe** opens the same form for an existing recipe. Details, Ingredients and Method tabs support titles, descriptions, tags, cooking metadata, ingredient amounts and notes, and ordered method steps. Insert ingredient amount chips into instructions to keep them linked to batch scaling. Optional step tips and timers are editable. Preview before saving, or cancel without changing the saved recipe. Removing an ingredient referenced in the method requires removing its amount chips first.
+Use **+ New recipe** to open the Import tab for AI JSON output or a backup. Choose **Create manually** to start a blank recipe. **Edit recipe** opens the same form for an existing recipe. Details, Ingredients and Method tabs support titles, descriptions, tags, cooking metadata, ingredient amounts and notes, and ordered method steps. Insert ingredient amount chips into instructions to keep them linked to batch scaling. Optional step tips and timers are editable. Preview before saving, or cancel without changing the saved recipe. Removing an ingredient referenced in the method requires removing its amount chips first.
 
 Batch size uses a custom multiplier, with ingredient-based scaling available in the same menu. **Delete recipe** requires an in-app confirmation. Public visitors can adjust only their own view, checklist state and timers.
