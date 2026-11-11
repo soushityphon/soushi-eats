@@ -5,6 +5,7 @@ export function cleanRecipe(r){
  if(!r||r.version!==1)throw Error('Recipe version must be 1');
  const id=text(r.id,100,'recipe id',true);if(!/^[a-zA-Z0-9_-]+$/.test(id)||['__proto__','constructor','prototype'].includes(id))throw Error('Invalid recipe id');
  const result={version:1,id,title:text(r.title,200,'title',true),description:text(r.description||'',3000,'description'),tags:[]};
+ if(r.createdBy&&['soushi','light'].includes(r.createdBy.id))result.createdBy={id:r.createdBy.id,name:r.createdBy.id==='soushi'?'Soushi':'Light'};
  if(!Array.isArray(r.tags)||r.tags.length>30)throw Error('Invalid tags');result.tags=r.tags.map(t=>text(t,80,'tag',true));
  if(!['AU','US','UK','METRIC','UNKNOWN'].includes(r.measurementStandard))throw Error('Invalid measurement standard');result.measurementStandard=r.measurementStandard;
  result.servings=r.servings??null;if(result.servings!==null&&!finite(result.servings,0.001,1000000))throw Error('Invalid servings');
