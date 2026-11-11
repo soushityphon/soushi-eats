@@ -27,6 +27,6 @@ export default {async fetch(request,env){
  if(path.startsWith('/api/')||path.startsWith('/admin/api/'))return json({error:'Not found'},404);
  if(!safeMethod)return json({error:'Method not allowed'},405,{Allow:'GET, HEAD'});
  if(path==='/'||path==='/admin'||path==='/admin/'||/^\/recipes\/[a-zA-Z0-9_-]+$/.test(path))return new Response(request.method==='HEAD'?null:page,{headers:{...SECURITY,'Content-Type':'text/html; charset=utf-8'}});
- if(path==='/favicon.ico')return new Response(null,{status:204,headers:SECURITY});return json({error:'Not found'},404);
+ if(icons[path]){const icon=icons[path];return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(icon.data),c=>c.charCodeAt(0)),{headers:{...SECURITY,'Content-Type':icon.type,'Cache-Control':'public, max-age=86400'}})}return json({error:'Not found'},404);
  }catch(e){console.error(JSON.stringify({event:'request_failed',message:e.name||'Error'}));return json({error:'The collection could not be loaded. Please try again.'},500)}
 }};
