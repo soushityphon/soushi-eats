@@ -4,7 +4,7 @@ A public recipe collection with owner-only editing, private owner notes, measure
 
 ## Live site
 
-Deployment target: https://soushi-eats.personal0reminders.workers.dev
+Live site: https://soushi-eats.personal0reminders.workers.dev
 
 - Public collection: `/`
 - Public recipe links: `/recipes/<recipe-id>`

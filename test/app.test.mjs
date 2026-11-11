@@ -1,4 +1,5 @@
 import test from 'node:test';
+import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import {readFile} from 'node:fs/promises';
@@ -38,3 +39,5 @@ test('counts and unknown units are preserved, not guessed',()=>{const data=struc
 test('public per-recipe route and security headers are served',async()=>{const response=await app.fetch(req('/recipes/hojicha-basque'),env());assert.equal(response.status,200);assert.ok((await response.text()).includes('Soushi Eats'));assert.equal(response.headers.get('X-Frame-Options'),'DENY')});
 test('unknown API routes cannot mutate data',async()=>assert.equal((await app.fetch(req('/api/state',{method:'PUT',body:'{}'}),env())).status,404));
 test.after(()=>{globalThis.fetch=originalFetch});
+
+test('build preserves frontend source and its JavaScript syntax',async()=>{const response=await app.fetch(req('/'),env());const html=await response.text();assert.equal(html,await readFile(new URL('../public/index.html',import.meta.url),'utf8'));const script=html.split('<script>')[1].split('</script>')[0];assert.doesNotThrow(()=>new vm.Script(script));});
