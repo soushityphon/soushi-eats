@@ -82,3 +82,15 @@ Soushi is the owner and Light is an editor. Both can add, edit and delete any re
 Recipe credits are assigned by the server using the signed-in account. Existing recipes default to Soushi. An edit retains the original creator. Public cards and recipe pages show only display names, and the collection has a person filter.
 
 The existing top-level states, preferences and densities remain Soushi's private data. Light's private data lives under privateUsers.light in the same versioned document. API responses return only the current user's private fields. Client-supplied profile data, other users' private data and forged recipe credits are ignored. Saves preserve the other person's private fields, validate progress against current recipe contents and use the existing revision conflict protection. Recovery downloads use separate browser keys for each account.
+
+## Shared notes, photos and covers
+
+Apply `migrations/002_contributions.sql` to the existing D1 database before deploying this build. It only creates new tables and indexes; it does not change existing recipes or private notes. Deploy both Pages and the secondary Worker using the same build.
+
+Each signed-in person has one public note per recipe, labelled with the name from their verified account. Saving an empty note removes it from public view. Earlier private notes stay in personal state and can be published by their author using **Share this note**. Favourites, checklist ticks, display settings and unshared notes stay personal.
+
+**Add photo** accepts JPEG, PNG and WebP files up to 20 MB. The browser resizes to a maximum edge of 1,600 pixels and re-encodes to JPEG under 700 KB, removing source metadata. The server accepts bounded JPEG data only and stores it in the separate `recipe_photos` table, outside the 1 MB recipe document. There are at most 12 active photos per recipe. Public collection responses contain photo metadata and same-origin image URLs, never image payloads or account emails. Images have an explicit image MIME type and `nosniff` headers.
+
+Signed-in users can select **Use as cover**, or choose **AI artwork** or **Photo** to save the default cover for everyone. Visitors may switch their own view without changing the saved cover. Removing the selected photo falls back to the artwork. Uploaders can remove their own photos; the owner can remove either person's photos. Removal soft-deletes the record. Photos attached to deleted recipes are no longer served publicly.
+
+Notes, photos and cover choices use separate endpoints and tables, so they do not conflict with recipe edits or expose personal state. The JSON export includes shared notes and photo/cover metadata, with image URLs. Image bytes are in D1 and are not embedded in JSON exports. A full database backup must include all three contribution tables as well as `app_state` and `state_history`; the collection revision history covers recipe and personal state, rather than the contribution tables.
