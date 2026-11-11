@@ -12,7 +12,7 @@ Updated 11 November 2026, Brisbane.
 - D1 database: `soushi-eats`
 - Pages production deployment ID: `d7cd5c32-d822-4e63-ab4e-df913732b463`
 - Pages build output: `dist/pages/_worker.js` and `dist/pages/_routes.json`
-- Access uses a reusable, exact-email Allow policy, the existing email-code provider, a 24-hour session and the `/admin` path.
+- Access uses a reusable, exact-email Allow policy, the Google identity provider, a 24-hour session and the `/admin` path.
 - The owner email and Access audience are runtime bindings. Inspect the existing Worker and Access settings when making changes, and preserve their values.
 - Public access is intentional. Do not make the whole Worker private.
 
@@ -46,11 +46,11 @@ Desktop and 390 px mobile form checks passed using a local fixture API: edit, pr
 - Live public collection loads the initial cheesecake from D1.
 - Live recipe URL loads directly and supports scaling.
 - Public import/edit/private-note controls are hidden.
-- Live owner entry opens Cloudflare Access email-code sign-in.
+- The owner confirmed the Google identity-provider connection test succeeded. The Pages owner app now selects only Google with direct redirect; API read-back confirmed the original audience, owner email policy and 24-hour session are preserved.
 
 ## Remaining user check
 
-Complete the real owner email-code sign-in, add or edit a recipe, wait for **Saved to your account**, then check the public view and a second device. Actual owner session and multi-device round-trip have not yet been tested live.
+Complete Google sign-in through the actual Soushi Eats owner entry, add or edit a recipe, wait for **Saved to your account**, then check the public view and a second device. Actual owner session and multi-device round-trip have not yet been tested live.
 
 ## Next work
 
@@ -58,5 +58,5 @@ Complete the real owner email-code sign-in, add or edit a recipe, wait for **Sav
 - No hosted GitHub Actions are configured.
 - Primary deployment uses the connected Cloudflare Pages API. Build the current source with `npm run build` and upload the `dist/pages/` outputs, preserving the Pages bindings and Access policy.
 - The existing D1 database is shared with the previous Workers hostname. No recipe data was copied or reset.
-- Live public browsing and the owner email-code challenge were verified at `soushi-eats.pages.dev`.
+- Live public browsing and the previous owner email-code challenge were verified at `soushi-eats.pages.dev`. Google has since replaced email-code login on the primary Pages owner application. The account-wide email-code provider and secondary Workers app were left in place.
 - Direct Upload is configured; GitHub pushes do not auto-deploy.
